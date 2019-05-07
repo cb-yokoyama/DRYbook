@@ -13,6 +13,7 @@ dmr.1 <- dmr[which(dmr$chromosome=="chr1"),c("start","end")]
 dmr.1$str <- "*"
 dmr.1$color <- topo.colors(16)[4]
 
+source("DataImport.R")
 source("R/cpttest.R")
 source("R/plotOperons.R")
 start <- dmr.1$start-15000
