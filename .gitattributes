@@ -1,2 +1,0 @@
-extData/Lister2009 filter=lfs diff=lfs merge=lfs -text
-extData/Lister2009/hg19/h19_H1.outfile filter=lfs diff=lfs merge=lfs -text

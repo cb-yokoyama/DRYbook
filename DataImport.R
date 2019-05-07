@@ -1,23 +1,8 @@
 
 # MethylationExport
-H1 <- read.csv("extData/Lister2009/hg19/h19_H1.outfile",sep="\t",head=F)
-#IMR90 <- read.csv("h19_IMR90.outfile",sep="\t",head=F)
+H1_chr1 <- read.csv("extData/Lister2009/hg19/h19_H1_chr1.outfile")
 
 
-names(H1)<- c("seqid","pos","strand","mratio")
-#names(IMR90)<- c("seqid","pos","strand","mratio")
-
-Tmp <- split(H1, H1$seqid)
-list2env(Tmp,env=.GlobalEnv)
-
-H1_chr1 <- H1[which(H1$seqid=="chr1"),]
-
-# > nrow(H1_chr20)
-# [1] 656997
-# > nrow(mc_h1_20f)
-# [1] 933382
-# > ncpts()
-# 815
 source("R/cpttest.R")
 library(changepoint)
 
