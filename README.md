@@ -8,6 +8,7 @@ Fig. 2B
 
 ## 論文中における図のタイトル
 Effects of penalty value on domain demarcation
+
 Domain demarcation patterns are shown for a genomic region around FOXD2 gene (chr1, 47,880,913–47,915,913) under five different penalty values
 
 # 実行方法

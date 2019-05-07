@@ -54,13 +54,12 @@ CGI$color<-"green"
 # - CpG island
 # - Gene Annotation
 # - penalty panel
-#lowerceil <- 1.0-Trackwidth*5
 query <- GRanges(seqnames="chr1",ranges=IRanges(xCoord[1],xCoord[2]),strand="*")
 ann <- as.data.frame(all_genes)[subjectHits(findOverlaps(query,all_genes)),]
 
 Ann.ceiling <- 1.0
 
-# Track 1; Annnotation Track
+# Track 0a; Annnotation Track
 par(fig=c(0,1,Ann.ceiling-0.075,Ann.ceiling-0), 
     mar = c(bottom=0.2, left=5, top=0.2, right=0.2),xaxs="i")
 if(nrow(ann)!=0){
@@ -74,7 +73,7 @@ if(nrow(ann)!=0){
   mtext("Gene", side=2, line=0.5, cex.lab=1,las=1, col="black")
 }
 
-# Track 2: CpG Island
+# Track 0b: CpG Island
 par(fig=c(0,1,Ann.ceiling-0.15,Ann.ceiling - 0.075), 
     mar = c(bottom=0.2, left=5, top=0.2, right=0.2),xaxs="i",new=T)
 plotOperons(CGI[,c("start","end","str","color")], xCoord[1], xCoord[2], heightOfOperon = 1.5,
@@ -121,10 +120,10 @@ cpt.plot(cpt.H1_chr1.pv02,pos=H1_chr1[,"pos"],main.title="",axes=F, point.col=gr
          rect.col="#00FF0000",xlim=xCoord,cex=my.cex)
 mtext("0.2", side=2, line=0.5, cex.lab=1,las=1, col="black")
 axis(2,at=seq(0.2,0.8,0.2),label=NA,tck=1,lty="dashed",col=gray(0.5))
-#   
+   
 par(fig=c(0,1,0.1,Pen.ceiling-Trackwidth*5),
     mar = c(bottom=0.2, left=5, top=0.2, right=0.2),xaxs="i",new=T)
-#plot(1:10)
+
 cpt.plot(cpt.H1_chr1.pv12,pos=H1_chr1[,"pos"],main.title="",axes=F, point.col="#00FF0000",cpt.col="#00FF0000",
          rect.col="#00FF0000",xlim=xCoord,cex=my.cex,ylim=c(0,2.4),plot=F)
 my.lwd="3"
@@ -173,7 +172,5 @@ abline(h=seq(0.2,1.8,0.4),lty="dashed")
 axis(2, at=c(0,1.0,2.0),labels=c(0,1.0,2.0),las=1)
 axis(1)
 
-dev.off()  
-
 par(oldpar)
-#}
+

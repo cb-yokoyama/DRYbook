@@ -1,5 +1,4 @@
 library(changepoint)
-source("R/cpttest.R")
 
 # Import Methylation Data
 H1_chr1 <- read.csv("extData/Lister2009/hg19/h19_H1_chr1.outfile")
