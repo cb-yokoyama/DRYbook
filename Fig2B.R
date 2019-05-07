@@ -1,13 +1,10 @@
-
-# cf. 140730_DataImport.R
-
 # Library import
 library(TxDb.Hsapiens.UCSC.hg19.knownGene)
 library(GenomicRanges)
+
 txdb <- TxDb.Hsapiens.UCSC.hg19.knownGene
 all_genes <- genes(txdb, filter=c(exon_chrom="chr1"))
 
-# ==============
 # DMR data import(liftOvered)
 dmr <- read.csv("hg19_DMR_output.bed",sep="\t",head=F)
 
@@ -44,7 +41,6 @@ CGI<- as.data.frame(rbind(
   c(47909713,47911020),
   c(47902794,47905518),
   c(47881897,47883065),
-  #c(47883413,47918413),
   c(47915640,47915952),
   c(47899662,47900385)
 ))
@@ -59,10 +55,10 @@ CGI$color<-"green"
 # - penalty panel
 #lowerceil <- 1.0-Trackwidth*5
 query <- GRanges(seqnames="chr1",ranges=IRanges(xCoord[1],xCoord[2]),strand="*")
-#ann <- as.data.frame(all_genes)[findOverlaps(query,all_genes)@subjectHits,]
 ann <- as.data.frame(all_genes)[subjectHits(findOverlaps(query,all_genes)),]
 
 Ann.ceiling <- 1.0
+
 # Track 1; Annnotation Track
 par(fig=c(0,1,Ann.ceiling-0.075,Ann.ceiling-0), 
     mar = c(bottom=0.2, left=5, top=0.2, right=0.2),xaxs="i")
@@ -71,10 +67,10 @@ if(nrow(ann)!=0){
   ann$color <- "gray"
   # ann$color<-ifelse(ann$strand=="+","blue","red")
   ann$str <- "*" #ifelse(ann$strand=="+",1,-1)
-  plotOperons(ann[,c("start","end","str","color")], xCoord[1], xCoord[2], 
+  plotOperons(ann[,c("start","end","str","color", "gene_id")], xCoord[1], xCoord[2], 
               axes=F,xlab="",lwd=2)
   box(lwd=2)
-  mtext("Genes", side=2, line=0.5, cex.lab=1,las=1, col="black")
+  mtext("Gene", side=2, line=0.5, cex.lab=1,las=1, col="black")
 }
 
 # Track 2: CpG Island
@@ -144,42 +140,38 @@ xpos_pv20=H1_chr1[cpt.H1_chr1.pv20@cpts,"pos"]
 
 xpos <- xpos_pv02[!(xpos_pv02 %in% xpos_pv04)]
 points(x = xpos, y=rep(0.2,length(xpos)),col="red",pch=19)
-#segments(x0 = xpos,y0 = 0,x1 = xpos, y1=0.2,lwd=my.lwd)
+
 xpos <- xpos_pv04[!(xpos_pv04 %in% xpos_pv06)]
 points(x = xpos, y=rep(0.4,length(xpos)),col="red",pch=19)
-#segments(x0 = xpos,y0 = 0,x1 = xpos, y1=0.4,lwd=my.lwd)
+
 xpos <- xpos_pv06[!(xpos_pv06 %in% xpos_pv08)]
 points(x = xpos, y=rep(0.6,length(xpos)),col="red",pch=19)
 
-#segments(x0 = xpos,y0 = 0,x1 = xpos, y1=0.6,lwd=my.lwd)
 xpos <- xpos_pv08[!(xpos_pv08 %in% xpos_pv10)]
 points(x = xpos, y=rep(0.8,length(xpos)),col="red",pch=19)
 
-#segments(x0 = xpos,y0 = 0,x1 = xpos, y1=0.8,lwd=my.lwd)
 xpos <- xpos_pv10[!(xpos_pv10 %in% xpos_pv12)]
 points(x = xpos, y=rep(1.0,length(xpos)),col="red",pch=19)
-#segments(x0 = xpos,y0 = 0,x1 = xpos, y1=1.0,lwd=my.lwd)
+
 xpos <- xpos_pv12[!(xpos_pv12 %in% xpos_pv14)]
 points(x = xpos, y=rep(1.2,length(xpos)),col="red",pch=19)
-#segments(x0 = xpos,y0 = 0,x1 = xpos, y1=1.2,lwd=my.lwd)
+
 xpos <- xpos_pv14[!(xpos_pv14 %in% xpos_pv16)]
 points(x = xpos, y=rep(1.4,length(xpos)),col="red",pch=19)
-#segments(x0 = xpos,y0 = 0,x1 = xpos, y1=1.4,lwd=my.lwd)
+
 xpos <- xpos_pv16[!(xpos_pv16 %in% xpos_pv18)]
 points(x = xpos, y=rep(1.6,length(xpos)),col="red",pch=19)
-#segments(x0 = xpos,y0 = 0,x1 = xpos, y1=1.6,lwd=my.lwd)
+
 xpos <- xpos_pv18[!(xpos_pv18 %in% xpos_pv20)]
 points(x = xpos, y=rep(1.8,length(xpos)),col="red",pch=19)
-#segments(x0 = xpos,y0 = 0,x1 = xpos, y1=1.8,lwd=my.lwd)
+
 xpos <- xpos_pv20
 points(x = xpos, y=rep(2.0,length(xpos)),col="red",pch=19)
 
-#segments(x0 = xpos,y0 = 0,x1 = xpos, y1=2.0,lwd=my.lwd)
 abline(h=seq(0.2,1.8,0.4),lty="dashed")
 axis(2, at=c(0,1.0,2.0),labels=c(0,1.0,2.0),las=1)
-axis(1)#,lwd=2,at=c(31330000,31340000,31350000))
+axis(1)
 
-#box(lwd=2)
 dev.off()  
 
 par(oldpar)

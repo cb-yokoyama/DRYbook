@@ -1,13 +1,10 @@
+library(changepoint)
+source("R/cpttest.R")
 
-# MethylationExport
+# Import Methylation Data
 H1_chr1 <- read.csv("extData/Lister2009/hg19/h19_H1_chr1.outfile")
 
-
-source("R/cpttest.R")
-library(changepoint)
-
-
-#chr1
+# Domain demarcation in chr1
 cpt.H1_chr1.pv20 <- cpt.mean(H1_chr1$mratio,method="PELT",penalty = "Manual",pen.value = "2.0")
 cpt.H1_chr1.pv18 <- cpt.mean(H1_chr1$mratio,method="PELT",penalty = "Manual",pen.value = "1.8")
 cpt.H1_chr1.pv16 <- cpt.mean(H1_chr1$mratio,method="PELT",penalty = "Manual",pen.value = "1.6")
